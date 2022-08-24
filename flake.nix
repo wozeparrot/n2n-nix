@@ -31,7 +31,7 @@
               autoreconfHook
               pkg-config
             ];
-            buildInputs = with pkgs; [ ];
+            buildInputs = with pkgs; [ openssl libcap zstd ];
 
             postPatch = ''
               patchShebangs autogen.sh
@@ -40,6 +40,12 @@
             preAutoreconf = ''
               ./autogen.sh
             '';
+
+            configureFlags = [
+              "--with-zstd"
+              "--with-openssl"
+              "--enable-cap"
+            ];
 
             PREFIX = placeholder "out";
           };
